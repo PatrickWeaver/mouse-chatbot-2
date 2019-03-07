@@ -1,6 +1,6 @@
 {
   "name": "mouse-chatbot",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "A drag and Drop Chatbot Generator",
   "main": "server.js",
   "scripts": {
@@ -8,17 +8,28 @@
     "start": "webpack && node server.js"
   },
   "dependencies": {
+    "@babel/preset-env": "^7.2.0",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/core": "^7.2.0",
+    "babel-loader": "^8.0.5",
     "express": "^4.16.4",
     "jsx-loader": "^0.13.2",
     "react": "^16.8.3",
     "react-dom": "^16.6.3",
+    "react-router-dom": "^4.3.1",
     "webpack": "^4.29.2",
+    "webpack-cli": "^3.2.2",
     "jquery": "^3.3.1",
-    "react-dragula": "^1.1.17",
-    "webpack-cli": "^3.2.2"
+    "react-dragula": "^1.1.17"
   },
   "engines": {
     "node": "10.x"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ]
   },
   "repository": {
     "url": "https://github.com/mouse-org/visual-chatbot"

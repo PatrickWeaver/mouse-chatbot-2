@@ -26,7 +26,7 @@ class Log extends React.Component {
   render() {
     console.log("IN LOG");
     console.log(this.props.data);
-    const messagess = this.props.data.map((message, index) =>
+    const messages = this.props.data.map((message, index) =>
       <Message message={message} key={index} type="log" />    
     );
     
@@ -36,7 +36,7 @@ class Log extends React.Component {
         ref={el => { this.el = el; }}
       >
         <ul>
-          {messagess}
+          {messages}
         </ul>
       </div>
     )

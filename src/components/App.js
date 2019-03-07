@@ -7,12 +7,12 @@ const $ = require('jquery');
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.updateData = this.updateData.bind(this);
+    this.updateChatData = this.updateChatData.bind(this);
     this.newGuestChat = this.newGuestChat.bind(this);
     this.reorderChats = this.reorderChats.bind(this);
     this.changeChat = this.changeChat.bind(this);
     this.handleNewBlankMessage = this.handleNewBlankMessage.bind(this);
-    
+    this.deleteMessage = this.deleteMessage.bind(this);
     
     this.state = {
       guestName: "Guest",
@@ -27,27 +27,31 @@ class App extends React.Component {
   
   mapMessages(messageArray) {
     return messageArray.map((message, index) => {
-      return {type: "script", text: message, index: index}
+      return {type: "script", messageText: message, index: index}
     })
   }
   
-  updateData(data) {
+  updateChatData(data) {
     console.log("Updating Data!");
     console.log(data);
-    this.setState((prevState, props) => ({
-      chatData: prevState.chatData.concat([data])
+    this.setState((state, props) => ({
+      chatData: state.chatData.concat([data])
     }));
+  }
+  
+  crossOutMessageFromScript(index) {
+    
   }
   
   newGuestChat(newMessage) {
     var guestChat = {
       author: this.state.guestName,
       authorType: "person",
-      message: newMessage,
+      messageText: newMessage,
       timestamp: Date()
     }
 
-    this.updateData(guestChat);
+    this.updateChatData(guestChat);
     
     setTimeout(() => {
       this.newBotChat();
@@ -60,15 +64,17 @@ class App extends React.Component {
     var botChat =  {
       author: "Bot",
       authorType: "bot",
-      message: this.state.botScript[this.state.botChatCount].text,
+      messageText: this.state.botScript[this.state.botChatCount].messageText,
       timestamp: Date()
     }
+    this.crossOutMessageFromScript(this.state.botChatCount)
     this.state.botChatCount += 1;
+    this.updateChatData(botChat);
     
-    this.updateData(botChat); 
   }
   
   reorderChats(newOrder) {
+    
     var newScriptData = []
     for (var i in newOrder) {
       console.log(i + ": $$");
@@ -87,7 +93,7 @@ class App extends React.Component {
     console.log("New Chats");
     console.log(key + ": " + newMessage);
     var botScript = this.state.botScript;
-    botScript[key].text = newMessage;
+    botScript[key].messageText = newMessage;
     botScript[key].type = "script";
     this.setState({
       botScript: botScript
@@ -96,9 +102,19 @@ class App extends React.Component {
   
   handleNewBlankMessage() {
     console.log("NEW MESSAGE");
-    this.setState((prevState, props) => ({
-      botScript: prevState.botScript.concat({type: "edit", text: "", index: prevState.botScript.length})
+    this.setState((state, props) => ({
+      botScript: state.botScript.concat({type: "edit", text: "", index: state.botScript.length})
     }));
+  }
+  
+  deleteMessage(index) {
+    this.setState((state, props) => {
+      var updatedBotScript = state.botScript;
+      updatedBotScript.splice(index, 1);
+      return {
+        botScript: updatedBotScript
+      }
+    })
   }
   
   componentDidMount() {
@@ -119,10 +135,12 @@ class App extends React.Component {
           />
         </div>
         <Script
-          data={this.state.botScript}
-          reorder={this.reorderChats}
-          changeChat={this.changeChat}
-          newBlankMessage={this.handleNewBlankMessage}
+          data = {this.state.botScript}
+          reorder = {this.reorderChats}
+          changeChat = {this.changeChat}
+          newBlankMessage = {this.handleNewBlankMessage}
+          botChatCount = {this.state.botChatCount}
+          handleDeleteMessage = {this.deleteMessage}
         />
       </div>   
     )

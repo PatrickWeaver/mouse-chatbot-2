@@ -18,9 +18,9 @@ class Script extends React.Component {
    console.log(m); 
   }
   
-  handleSaveChange(m, k) {
-    console.log("Save! " + k + ": " + m);
-    this.props.changeChat(m, k);
+  handleSaveChange(newMessage, key) {
+    console.log("Save! " + key + ": " + newMessage);
+    this.props.changeChat(newMessage, key);
   }
   
   componentDidMount() {
@@ -47,12 +47,14 @@ class Script extends React.Component {
     
     const messages = this.props.data.map((message, index) =>
       <Message
-        message={message.text}
-        key={index}
-        index={index}
-        type={message.type}
-        editMessage={this.handleEditMessage}
-        saveChange={this.handleSaveChange}
+        message={message}
+        key = {index}
+        index = {index}
+        botChatCount = {this.props.botChatCount}
+        type = {message.type} // Need this even though it is part of message to be consistent with the Log messages
+        editMessage = {this.handleEditMessage}
+        handleDeleteMessage = {this.props.handleDeleteMessage}
+        saveChange = {this.handleSaveChange}
       />                       
     );
     

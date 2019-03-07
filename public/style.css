@@ -147,6 +147,10 @@ ol {
   cursor: pointer;
 }
 
+.strikethrough {
+  text-decoration: line-through;
+}
+
 
 @media (max-width: 960px) {
   body {

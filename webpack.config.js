@@ -1,7 +1,7 @@
-const path = require('path');
+const path = require('path')
 
 module.exports = {
-  mode: 'development',
+  mode: 'production',
   context: path.join(__dirname, './'),
   entry: './src/app.jsx',
   output: {
@@ -14,11 +14,10 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
-        loader: 'jsx-loader',
+        test: /\.(js|jsx)?$/,
         exclude: /node_modules/,
-        include: path.join(__dirname, 'src'),
-      },
+        use: ['babel-loader']
+      }
     ],
   },
-};
+}

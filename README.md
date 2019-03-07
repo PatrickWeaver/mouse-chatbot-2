@@ -1,1 +1,1 @@
-# Mouse Chatbot 2
+# Visual Chatbot

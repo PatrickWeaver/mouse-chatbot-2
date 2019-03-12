@@ -151,6 +151,16 @@ ol {
   text-decoration: line-through;
 }
 
+#reset-button {
+  display: inline-block;
+  font-size: 50px;
+  z-index: 10;
+  cursor: pointer;
+  position: fixed;
+  top: 0;
+  right: 0;
+}
+
 
 @media (max-width: 960px) {
   body {

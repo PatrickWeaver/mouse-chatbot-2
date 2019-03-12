@@ -13,6 +13,7 @@ class App extends React.Component {
     this.changeChat = this.changeChat.bind(this);
     this.handleNewBlankMessage = this.handleNewBlankMessage.bind(this);
     this.deleteMessage = this.deleteMessage.bind(this);
+    this.reset = this.reset.bind(this);
     
     this.state = {
       guestName: "Guest",
@@ -60,7 +61,6 @@ class App extends React.Component {
   
   newBotChat() {
     console.log("BOTCHAT");
-    console.log(this.state.botScript);
     var botChat =  {
       author: "Bot",
       authorType: "bot",
@@ -117,6 +117,15 @@ class App extends React.Component {
     })
   }
   
+  reset() {
+    //alert("Reset")
+    this.setState(() => ({
+      botScript: this.mapMessages(this.props.botScript),
+      botChatCount: this.props.botChatCount,
+      chatData: []
+    }), this.newBotChat)
+  }
+  
   componentDidMount() {
     this.newBotChat();
   }
@@ -134,6 +143,10 @@ class App extends React.Component {
             handleKeyPress={this.handleKeyPress}
           />
         </div>
+        <div
+          id="reset-button"
+          onClick={this.reset}
+        >🔁</div>
         <Script
           data = {this.state.botScript}
           reorder = {this.reorderChats}

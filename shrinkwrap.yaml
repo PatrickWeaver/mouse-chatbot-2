@@ -5,6 +5,7 @@ dependencies:
   babel-loader: 8.0.5
   express: 4.16.4
   jquery: 3.3.1
+  js-base64: 2.5.1
   jsx-loader: 0.13.2
   react: 16.8.4
   react-dom: 16.8.4
@@ -2498,6 +2499,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-Ubldcmxp5np52/ENotGxlLe6aGMvmF4R8S6tZjsP6Knsaxd/xp3Zrh50cG93lR6nPXyUFwzN3ZSOQI0wRJNdGg==
+  /js-base64/2.5.1:
+    dev: false
+    resolution:
+      integrity: sha512-M7kLczedRMYX4L8Mdh4MzyAMM9O5osx+4FcOQuTvr3A9F2D9S5JXheN0ewNbrvK2UatkTRhL5ejGmGSjNMiZuw==
   /js-levenshtein/1.1.6:
     dev: false
     engines:
@@ -4325,6 +4330,7 @@ specifiers:
   babel-loader: ^8.0.5
   express: ^4.16.4
   jquery: ^3.3.1
+  js-base64: ^2.5.1
   jsx-loader: ^0.13.2
   react: ^16.8.3
   react-dom: ^16.6.3

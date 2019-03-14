@@ -19,13 +19,13 @@ class Log extends React.Component {
   }
 
   scrollToBottom() {
-    console.log(this.el.lastChild);
+    //console.log(this.el.lastChild);
     this.el.lastChild.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'end'});
   }
   
   render() {
-    console.log("IN LOG");
-    console.log(this.props.data);
+    //console.log("IN LOG");
+    //console.log(this.props.data);
     const messages = this.props.data.map((message, index) =>
       <Message message={message} key={index} type="log" />    
     );

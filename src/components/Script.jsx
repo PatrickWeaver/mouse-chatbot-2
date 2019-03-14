@@ -28,10 +28,10 @@ class Script extends React.Component {
     var drake = dragula([container], {
       revertOnSpill: true,
     }).on('drop', (el, cont) => {
-      console.log("DROP");
-      console.log(Array.from(el.parentNode.children));
+      //console.log("DROP");
+      //console.log(Array.from(el.parentNode.children));
       var newArray = Array.from(el.parentNode.children);
-      console.log(newArray);
+      //console.log("New Array:", newArray);
       this.props.reorder(newArray);
       drake.cancel();
     });
@@ -42,8 +42,8 @@ class Script extends React.Component {
   
   render() {
     
-    console.log("****")
-    console.log(this.props.data);
+    //console.log("****")
+    //console.log(this.props.data);
     
     const messages = this.props.data.map((message, index) =>
       <Message
@@ -61,6 +61,7 @@ class Script extends React.Component {
     return (
       <div id="script">
         <h2>Script:</h2>  
+        <p>{this.props.base64Script.length} - {this.props.base64Script}</p>
         <ol
           id="script-messages"
           className='container'

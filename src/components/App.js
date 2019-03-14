@@ -3,13 +3,15 @@ const Log = require('./Log');
 const Compose = require('./Compose');
 const Script = require('./Script');
 const $ = require('jquery');
+const Base64 = require('js-base64').Base64;
 
 class App extends React.Component {
   constructor(props) {
     super(props);
+    this.base64Script = this.base64Script.bind(this);
     this.updateChatData = this.updateChatData.bind(this);
     this.newGuestChat = this.newGuestChat.bind(this);
-    this.reorderChats = this.reorderChats.bind(this);
+    this.reorderScript = this.reorderScript.bind(this);
     this.changeChat = this.changeChat.bind(this);
     this.handleNewBlankMessage = this.handleNewBlankMessage.bind(this);
     this.deleteMessage = this.deleteMessage.bind(this);
@@ -26,9 +28,17 @@ class App extends React.Component {
     }
   }
   
+  base64Script() {
+    return Base64.encode(JSON.stringify(this.state.botScript));
+  }
+  
   mapMessages(messageArray) {
     return messageArray.map((message, index) => {
-      return {type: "script", messageText: message, index: index}
+      return {
+        type: message.type,
+        messageText: message.message,
+        index: index
+      }
     })
   }
   
@@ -73,16 +83,16 @@ class App extends React.Component {
     
   }
   
-  reorderChats(newOrder) {
-    
+  reorderScript(newOrder) {
     var newScriptData = []
     for (var i in newOrder) {
-      console.log(i + ": $$");
-      console.log(newOrder[i].firstChild.firstChild.innerText);
-      newScriptData.push(newOrder[i].firstChild.firstChild.innerText);
+      //console.log(i + ": $$");
+      const message = newOrder[i].firstChild.firstChild.innerText;
+      const type = newOrder[i].firstChild.firstChild.dataset.type;
+      newScriptData.push({type: type, message: message});
     }
-    console.log("NSD");
-    console.log(newScriptData);
+    //console.log("NSD");
+    //console.log(newScriptData);
 
     this.setState({
       botScript: this.mapMessages(newScriptData)
@@ -94,7 +104,7 @@ class App extends React.Component {
     console.log(key + ": " + newMessage);
     var botScript = this.state.botScript;
     botScript[key].messageText = newMessage;
-    botScript[key].type = "script";
+    botScript[key].type = "statement";
     this.setState({
       botScript: botScript
     })
@@ -118,9 +128,7 @@ class App extends React.Component {
   }
   
   reset() {
-    //alert("Reset")
     this.setState(() => ({
-      botScript: this.mapMessages(this.props.botScript),
       botChatCount: this.props.botChatCount,
       chatData: []
     }), this.newBotChat)
@@ -149,11 +157,12 @@ class App extends React.Component {
         >🔁</div>
         <Script
           data = {this.state.botScript}
-          reorder = {this.reorderChats}
+          reorder = {this.reorderScript}
           changeChat = {this.changeChat}
           newBlankMessage = {this.handleNewBlankMessage}
           botChatCount = {this.state.botChatCount}
           handleDeleteMessage = {this.deleteMessage}
+          base64Script = {this.base64Script()}
         />
       </div>   
     )

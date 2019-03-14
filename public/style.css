@@ -104,6 +104,8 @@ ol {
   position: fixed;
   right: 0;
   top: 0;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 #script h2 {
@@ -114,8 +116,16 @@ ol {
   border: 1px solid black;
   padding: .5em;
   margin: .25em;
-  background-color: #FF8;
+  
   cursor: move;
+}
+
+.script-statement {
+  background-color: #FF8;
+}
+
+.script-question {
+  background-color: #F8F;
 }
 
 .script-message-text, .script-message-input {

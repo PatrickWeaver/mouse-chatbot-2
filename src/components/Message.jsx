@@ -2,6 +2,7 @@ const React = require('react');
 
 const MessageEditingInScript = require('./MessageEditingInScript')
 const MessageInScript = require('./MessageInScript')
+const QuestionInScript = require('./QuestionInScript')
 const MessageInLog = require('./MessageInLog')
 
 class Message extends React.Component {
@@ -25,7 +26,7 @@ class Message extends React.Component {
   saveMessage() {
     this.setState((state, props) => {
       return {
-        type: "script"
+        type: "statement"
       }
     })
     this.props.saveChange(this.state.editedMessageText, this.props.index);
@@ -43,10 +44,21 @@ class Message extends React.Component {
     if (this.state.type === "log") {
       return <MessageInLog {...this.props.message} />
       
-    // In script list:
-    } else if (this.state.type === "script") {
+    // In script list - Statement:
+    } else if (this.state.type === "statement") {
       return (
         <MessageInScript
+          {...this.props.message}
+          sent = {this.props.index < this.props.botChatCount}
+          handleStartEditingMessage = {this.handleStartEditingMessage}
+          handleDeleteMessage = {() => this.props.handleDeleteMessage(this.props.index)}
+        />
+      )
+      
+    // In script list - Question
+    } else if (this.state.type === "question") {
+      return (
+        <QuestionInScript
           {...this.props.message}
           sent = {this.props.index < this.props.botChatCount}
           handleStartEditingMessage = {this.handleStartEditingMessage}
